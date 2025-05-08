@@ -149,7 +149,39 @@ export interface CropperResult {
 }
 
 export declare const Cropper: DefineComponent<
-	any,
+  {
+    src?: string;
+    backgroundClass?: string;
+    foregroundClass?: string;
+    imageRestriction?: 'fill-area' | 'fit-area' | 'stencil' | 'none';
+    defaultBoundaries?: 'fill';
+    defaultPosition?: Limits;
+    defaultVisibleArea?: Coordinates;
+    defaultSize?: Size | ((size: { visibleArea : VisibleArea , imageSize: ImageSize }) => Size);
+    stencilSize?: Size | ((size: { boundaries: Boundaries }) => Size);
+    stencilProps?: {
+      lines?: unknown;
+      handlers?: unknown;
+      movable?: boolean;
+      resizable?: boolean;
+      scalable?: boolean;
+      aspectRatio?: number;
+      previewClass?: string;
+      minAspectRatio?: number;
+      maxAspectRatio?: number;
+      handlerComponent?: unknown;
+      handlersClasses?: Record<string, string>;
+    };
+    stencilComponent?: string;
+    canvas?: boolean | SizeRestrictions;
+    debounce?: boolean;
+    transitions?: boolean;
+    minWidth?: number;
+    minHeight?: number;
+    priority?: 'visibleArea';
+    sizeRestrictionsAlgorithm?: 'pixelsRestriction';
+    defaultTransforms?: unknown;
+  },
 	{
 		getResult: () => CropperResult;
 		setCoordinates: (transform: Transform | Transform[]) => void;
@@ -159,7 +191,13 @@ export declare const Cropper: DefineComponent<
 		rotate: (angle: number) => void;
 		flip: (horizontal: boolean, vertical?: boolean) => void;
 		reset: () => void;
-	}
+	},
+  {imageSize: ImageSize, sizeRestrictions: SizeRestrictions; coordinates: Coordinates},
+  {},
+  {},
+  {},
+  {},
+  {ready: () => void; change: (event: CropperResult) => void; error: () => void;}
 >;
 
 export declare const PreviewResult: DefineComponent<any>;
